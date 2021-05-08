@@ -1,0 +1,7 @@
+POST http://nyx.vima.ekt.gr:3000/api/books
+content-type: application/json
+
+{
+    "page":1,
+    "itemsPerPage":20
+}
