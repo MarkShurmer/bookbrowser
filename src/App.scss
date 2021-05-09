@@ -1,0 +1,14 @@
+
+/* import bootstrap to set changes */
+@import "theme";
+
+.AppContainer {
+    height:100vh;
+}
+
+.header {
+    text-align: center;
+    background-color: $secondary;
+    color: $light;
+    padding: 1rem;
+}
