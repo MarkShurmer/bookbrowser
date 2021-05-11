@@ -1,0 +1,35 @@
+.BookContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0.5rem 2rem 0.5rem 2rem;
+    height:100%;
+   
+    .SearchBar {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.25rem;
+ 
+        .Search {
+            display: flex;
+            width: 50%;
+        }
+        .SearchInput {
+            margin-right: 0.5rem;
+        }
+
+        .Pagination {
+            flex-shrink: 0;
+        }
+    }
+
+    .Results {
+        flex: 1 0 auto;
+        display: inline-flex;
+
+        .Spinner {
+            margin: auto;
+            align-self: center;
+        }
+      }
+}
