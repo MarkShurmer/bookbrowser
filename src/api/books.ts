@@ -1,5 +1,6 @@
 import axios from "axios";
 
+export const PAGE_SIZE = 20;
 
 export type BooksParams = {
     page: number;
@@ -24,6 +25,7 @@ type BookResponseData = {
 export type BookResult = {
     books: Array<Book>;
     areMoreItems: boolean;
+    lastPage: number;
 }
 
 export const fetchBooks = async (params: BooksParams): Promise<BookResult> => {
@@ -32,14 +34,23 @@ export const fetchBooks = async (params: BooksParams): Promise<BookResult> => {
         filter
     } = params;
 
-    const response = await axios.post<BookResponseData>('http://nyx.vima.ekt.gr:3000/api/books', {
-        page,
-        itemsPerPage: 20,
-        filters: filter ? [{type: 'all', values: [filter]}] : undefined
-    });
+    try {
+        const response = await axios.post<BookResponseData>('http://nyx.vima.ekt.gr:3000/api/books', {
+            page,
+            itemsPerPage: PAGE_SIZE,
+            filters: filter ? [{ type: 'all', values: [filter] }] : undefined
+        });
 
-    const currentCount = 20 * page;
+        const currentCount = PAGE_SIZE * page;
 
-    return { books: response.data.books, areMoreItems: currentCount >= response.data.count };
+        return {
+            books: response.data.books, areMoreItems:  response.data.count >= currentCount,
+            lastPage: Math.ceil(response.data.count / PAGE_SIZE)
+        };
+    }
+    catch (err) {
+        console.error(err);
+        return { books: [], areMoreItems: false, lastPage: 0 }
+    }
 };
 

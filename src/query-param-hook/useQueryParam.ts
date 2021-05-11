@@ -10,26 +10,22 @@ const getQuery = () => {
     return new URLSearchParams();
 };
 
-const getQueryStringVal = (key: string): string | null => {
-    return getQuery().get(key);
+const getQueryStringVal = (key: string): number | null => {
+    return parseInt(getQuery().get(key) || '');
 };
 
 const useQueryParam = (
     key: string,
-    defaultVal: string
-): [string, (val: string) => void] => {
-    const [query, setQuery] = useState(getQueryStringVal(key) || defaultVal);
+    defaultVal: number
+): [number, (val: number) => void] => {
+    const [query, setQuery] = useState<number>(getQueryStringVal(key) || defaultVal);
 
-    const updateUrl = (newVal: string) => {
+    const updateUrl = (newVal: number) => {
         setQuery(newVal);
 
         const query = getQuery();
-
-        if (newVal.trim() !== '') {
-            query.set(key, newVal);
-        } else {
-            query.delete(key);
-        }
+        query.set(key, newVal.toString());
+        window.history.pushState(undefined, 'Book browser', `http://localhost:3000?${key}=${newVal}`);
 
     };
 

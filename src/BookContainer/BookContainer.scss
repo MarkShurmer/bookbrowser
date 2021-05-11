@@ -6,23 +6,30 @@
     height:100%;
    
     .SearchBar {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.25rem;
  
         .Search {
             display: flex;
-            margin: 0 30% 0 5%;
+            width: 50%;
         }
         .SearchInput {
             margin-right: 0.5rem;
+        }
+
+        .Pagination {
+            flex-shrink: 0;
         }
     }
 
     .Results {
         flex: 1 0 auto;
+        display: inline-flex;
+
+        .Spinner {
+            margin: auto;
+            align-self: center;
+        }
       }
-      
-    .Pagination {
-        flex-shrink: 0;
-        justify-content: flex-end;
-        display: flex;
-    }
 }
